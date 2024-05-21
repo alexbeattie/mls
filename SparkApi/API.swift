@@ -1,14 +1,7 @@
-//
-//  API.swift
-//  SparkApi
-//
-//  Created by Alex Beattie on 5/20/24.
-//
-
 import Foundation
 
 struct API {
-    static func fetchActiveListings(queryItems: [URLQueryItem] = []) async throws -> [ActiveListings.ListingResult] {
+    static func fetchListings(queryItems: [URLQueryItem] = []) async throws -> [ActiveListings.ListingResult] {
         let url = constructURL(for: "listings", queryItems: queryItems)
         let listingData: ActiveListings.ListingData = try await fetchData(from: url)
         return listingData.D.Results

@@ -18,7 +18,14 @@ struct MainTabView: View {
                           }
                 .tag(1)
             
-            
+            ActiveListingsMapView(viewModel: ListingViewModel())
+                        .tabItem {
+                            Label("Active Map", systemImage: "map.fill")
+                        }
+                    ClosedListingsMapView(viewModel: ListingViewModel())
+                        .tabItem {
+                            Label("Closed Map", systemImage: "map")
+                        }
 //            NewMapView(listings: Array(viewModel.results))  // Ensure this matches the NewMapView initializer
 //                .tabItem {
 //                    Image(systemName: "map")

@@ -29,6 +29,7 @@ struct Constants {
            static let select = "_select"
            static let limit = "_limit"
            static let pagination = "_pagination"
+           static let page = "_page"
            static let orderby = "_orderby"
            static let expand = "_expand"
        }
@@ -38,7 +39,7 @@ struct Constants {
     static let vanparys = "207092085"
     static let ok = "20160917164830438874000000"
     static let currentPage = 0
-    static let itemsPerPage = 5
+    static let itemsPerPage = 1
     static let compass = "20180423214801878673000000"
     static let sara = "20160917170948921021000000"
     static let laperche = "20160917170949016404000000"

@@ -2,19 +2,18 @@ import SwiftUI
 import Combine
 import Foundation
 
-
-
-
 @MainActor
 class ListingViewModel: ObservableObject {
-    @Published var searchResults: [ActiveListings.ListingResult] = []
+    @Published var results: [ActiveListings.ListingResult] = []
     @Published var closedListings: [ActiveListings.ListingResult] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
+    @Published var hasMoreData = true
 
-    init() {
-        fetchListings(of: .active)
-    }
+    private var currentPage = 1
+    private let pageSize = 50
+
+    private var cancellables = Set<AnyCancellable>()
 
     enum ListingType {
         case active
@@ -22,6 +21,18 @@ class ListingViewModel: ObservableObject {
     }
 
     func fetchListings(of type: ListingType) {
+        currentPage = 1
+        hasMoreData = true
+        fetchPage(of: type)
+    }
+
+    func fetchNextPage(of type: ListingType) {
+        guard !isLoading, hasMoreData else { return }
+        currentPage += 1
+        fetchPage(of: type)
+    }
+
+    private func fetchPage(of type: ListingType) {
         guard !isLoading else { return }
         isLoading = true
 
@@ -34,37 +45,55 @@ class ListingViewModel: ObservableObject {
         }
 
         let queryItems = [
-            URLQueryItem(name: Constants.QueryKeys.limit, value: "50"),
+            URLQueryItem(name: Constants.QueryKeys.limit, value: "\(pageSize)"),
             URLQueryItem(name: Constants.QueryKeys.pagination, value: "1"),
-            URLQueryItem(name: Constants.QueryKeys.filter, value: "MlsId eq '\(Constants.MLSID)' And ListAgentId Eq '\(Constants.lindamay)' And MlsStatus Eq '\(status)'"),
+            URLQueryItem(name: Constants.QueryKeys.page, value: "\(currentPage)"),
+            URLQueryItem(name: Constants.QueryKeys.filter, value: "MlsId eq '\(Constants.MLSID)' And ListAgentId Eq '\(Constants.aaronkirman)' And MlsStatus Eq '\(status)'"),
             URLQueryItem(name: Constants.QueryKeys.orderby, value: "-ListPrice"),
             URLQueryItem(name: Constants.QueryKeys.expand, value: "Photos,Documents,Videos,VirtualTours,OpenHouses,CustomFields")
         ]
 
-        Task {
-            do {
-                let listings = try await API.fetchActiveListings(queryItems: queryItems)
-                await MainActor.run {
-                    switch type {
-                    case .active:
-                        self.searchResults = listings
-                    case .closed:
+        fetchListings(queryItems: queryItems)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    self.errorMessage = "Error fetching listings: \(error.localizedDescription)"
+                    self.isLoading = false
+                case .finished:
+                    break
+                }
+            }, receiveValue: { listings in
+                if self.currentPage == 1 {
+                    if type == .active {
+                        self.results = listings
+                    } else {
                         self.closedListings = listings
                     }
-                }
-
-                if (type == .active && searchResults.isEmpty) || (type == .closed && closedListings.isEmpty) {
-                    print("Results array is empty")
                 } else {
-                    print(type == .active ? searchResults : closedListings)
+                    if type == .active {
+                        self.results.append(contentsOf: listings)
+                    } else {
+                        self.closedListings.append(contentsOf: listings)
+                    }
                 }
+                self.hasMoreData = listings.count == self.pageSize
+                self.isLoading = false
+            })
+            .store(in: &cancellables)
+    }
 
-            } catch {
-                await MainActor.run {
-                    self.errorMessage = "Error fetching listings: \(error)"
+    private func fetchListings(queryItems: [URLQueryItem]) -> AnyPublisher<[ActiveListings.ListingResult], Error> {
+        Future { promise in
+            Task {
+                do {
+                    let listings = try await API.fetchListings(queryItems: queryItems)
+                    promise(.success(listings))
+                } catch {
+                    promise(.failure(error))
                 }
             }
-            isLoading = false
         }
+        .eraseToAnyPublisher()
     }
 }
