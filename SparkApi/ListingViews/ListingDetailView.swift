@@ -89,35 +89,53 @@ struct ListingDetailView: View {
                     .padding(.horizontal)
                 
                 if let lat = listing.StandardFields.Latitude?.doubleValue,
-                   let lon = listing.StandardFields.Longitude?.doubleValue {
-                    MapOfListingsView(listings: [listing], directions: $directions)
-                        .frame(height: 200)
-                        .cornerRadius(10)
-                        .padding(.horizontal)
-                } else { 
-                    Text("Location information not available.")
-                        .padding(.horizontal)
-                }
+                                 let lon = listing.StandardFields.Longitude?.doubleValue {
+                                  MapOfListingsView(listings: [listing], directions: $directions)
+                                      .frame(height: 200)
+                                      .cornerRadius(10)
+                                      .padding(.horizontal)
+                                  
+                                  Button(action: {
+                                      openDirectionsInMaps(latitude: lat, longitude: lon)
+                                  }) {
+                                      Text("Get Directions")
+                                          .padding()
+                                          .frame(maxWidth: .infinity)
+                                          .background(Color.blue)
+                                          .foregroundColor(.white)
+                                          .cornerRadius(8)
+                                  }
+                                  .padding()
+                              } else {
+                                  Text("Location information not available.")
+                                      .padding(.horizontal)
+                              }
                 
-                Button(action: {
-                    showMapView.toggle()
-                }) { 
-                    Text("View Full Map")
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                }
-                .padding()
-                .sheet(isPresented: $showMapView) {
-                    FullMapView(listing: listing, directions: $directions)
-                }
+//                Button(action: {
+//                    showMapView.toggle()
+//                }) { 
+//                    Text("View Full Map")
+//                        .padding()
+//                        .frame(maxWidth: .infinity)
+//                        .background(Color.blue)
+//                        .foregroundColor(.white)
+//                        .cornerRadius(8)
+//                }
+//                .padding()
+//                .sheet(isPresented: $showMapView) {
+//                    FullMapView(listing: listing, directions: $directions)
+//                }
                 Spacer()
             }
         }
-        .edgesIgnoringSafeArea(.all)
+//        .edgesIgnoringSafeArea(.all)
     }
+    private func openDirectionsInMaps(latitude: Double, longitude: Double) {
+           let url = URL(string: "http://maps.apple.com/?daddr=\(latitude),\(longitude)")!
+           if UIApplication.shared.canOpenURL(url) {
+               UIApplication.shared.open(url, options: [:], completionHandler: nil)
+           }
+       }
 }
 func formatNumberWithoutDecimals(_ number: Double) -> String {
     let formatter = NumberFormatter()

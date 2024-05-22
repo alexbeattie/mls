@@ -11,13 +11,18 @@ class ListingViewModel: ObservableObject {
     @Published var hasMoreData = true
 
     private var currentPage = 1
-    private let pageSize = 50
+    private var pageSize: Int
 
     private var cancellables = Set<AnyCancellable>()
 
     enum ListingType {
         case active
         case closed
+    }
+
+    init(pageSize: Int = 5) { // Default page size is 5
+        self.pageSize = pageSize
+        fetchListings(of: .active)
     }
 
     func fetchListings(of type: ListingType) {
