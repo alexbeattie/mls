@@ -53,7 +53,7 @@ class ListingViewModel: ObservableObject {
             URLQueryItem(name: Constants.QueryKeys.limit, value: "\(pageSize)"),
             URLQueryItem(name: Constants.QueryKeys.pagination, value: "1"),
             URLQueryItem(name: Constants.QueryKeys.page, value: "\(currentPage)"),
-            URLQueryItem(name: Constants.QueryKeys.filter, value: "MlsId eq '\(Constants.MLSID)' And ListAgentId Eq '\(Constants.aaronkirman)' And MlsStatus Eq '\(status)'"),
+            URLQueryItem(name: Constants.QueryKeys.filter, value: "MlsId eq '\(Constants.MLSID)' And ListAgentId Eq '\(Constants.aaronkirman)' And StandardStatus Eq '\(status)'"),
             URLQueryItem(name: Constants.QueryKeys.orderby, value: "-ListPrice"),
             URLQueryItem(name: Constants.QueryKeys.expand, value: "Photos,Documents,Videos,VirtualTours,OpenHouses,CustomFields")
         ]

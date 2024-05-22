@@ -22,6 +22,7 @@
 		78563BD72BFD344E00ABDAF1 /* ActiveListingsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78563BD62BFD344E00ABDAF1 /* ActiveListingsMapView.swift */; };
 		78563BD92BFD352000ABDAF1 /* ClosedListingsMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78563BD82BFD352000ABDAF1 /* ClosedListingsMapView.swift */; };
 		78563BDF2BFDB36D00ABDAF1 /* NewShimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78563BDE2BFDB36D00ABDAF1 /* NewShimmer.swift */; };
+		78563BE12BFE61D500ABDAF1 /* MlsStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78563BE02BFE61D500ABDAF1 /* MlsStatusView.swift */; };
 		78A922652BF3FC8200441432 /* SparkApiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A922642BF3FC8200441432 /* SparkApiApp.swift */; };
 		78A922672BF3FC8200441432 /* ActiveListingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78A922662BF3FC8200441432 /* ActiveListingsView.swift */; };
 		78A922692BF3FC8400441432 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 78A922682BF3FC8400441432 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		78563BD62BFD344E00ABDAF1 /* ActiveListingsMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveListingsMapView.swift; sourceTree = "<group>"; };
 		78563BD82BFD352000ABDAF1 /* ClosedListingsMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosedListingsMapView.swift; sourceTree = "<group>"; };
 		78563BDE2BFDB36D00ABDAF1 /* NewShimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewShimmer.swift; sourceTree = "<group>"; };
+		78563BE02BFE61D500ABDAF1 /* MlsStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MlsStatusView.swift; sourceTree = "<group>"; };
 		78A922612BF3FC8200441432 /* SparkApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SparkApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78A922642BF3FC8200441432 /* SparkApiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparkApiApp.swift; sourceTree = "<group>"; };
 		78A922662BF3FC8200441432 /* ActiveListingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveListingsView.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				78A9226A2BF3FC8400441432 /* Preview Content */,
 				78563BDA2BFD536100ABDAF1 /* MapViews */,
 				78563BDE2BFDB36D00ABDAF1 /* NewShimmer.swift */,
+				78563BE02BFE61D500ABDAF1 /* MlsStatusView.swift */,
 			);
 			path = SparkApi;
 			sourceTree = "<group>";
@@ -231,6 +234,7 @@
 				78563BD72BFD344E00ABDAF1 /* ActiveListingsMapView.swift in Sources */,
 				78563B9C2BFA7BE000ABDAF1 /* FullMapView.swift in Sources */,
 				78563B9A2BFA763B00ABDAF1 /* MainTabView.swift in Sources */,
+				78563BE12BFE61D500ABDAF1 /* MlsStatusView.swift in Sources */,
 				78A922672BF3FC8200441432 /* ActiveListingsView.swift in Sources */,
 				78A922732BF3FD5400441432 /* ViewModel.swift in Sources */,
 				78563BCF2BFC4F7400ABDAF1 /* API.swift in Sources */,
