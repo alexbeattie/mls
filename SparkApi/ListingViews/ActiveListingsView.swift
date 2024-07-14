@@ -90,9 +90,9 @@ struct ActiveListingsView: View {
                                     .onAppear {
                                         if index == viewModel.results.count - 3 && viewModel.hasMoreData && !viewModel.isLoading {
                                             viewModel.fetchNextPage(of: .active)
-                                            if let lastId = lastIdVisible {
-                                                scrollView.scrollTo(lastId, anchor: .bottom)
-                                            }
+                                            if index == viewModel.results.count - 3 && viewModel.hasMoreData && !viewModel.isLoading {
+                                                    viewModel.fetchNextPage(of: .active)
+                                                }
                                         }
                                     }
                                     .onDisappear {

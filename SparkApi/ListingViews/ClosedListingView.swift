@@ -91,9 +91,6 @@ struct ClosedListingsView: View {
                                     .onAppear {
                                         if index == viewModel.closedListings.count - 3 && viewModel.hasMoreData && !viewModel.isLoading {
                                             viewModel.fetchNextPage(of: .closed)
-                                            if let lastId = lastIdVisible {
-                                                scrollView.scrollTo(lastId, anchor: .bottom)
-                                            }
                                         }
                                     }
                                     .onDisappear {

@@ -4,6 +4,7 @@ import Foundation
 
 @MainActor
 class ListingViewModel: ObservableObject {
+    
     @Published var results: [ActiveListings.ListingResult] = []
     @Published var closedListings: [ActiveListings.ListingResult] = []
     @Published var isLoading = false
